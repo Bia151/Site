@@ -1,0 +1,946 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Cãominhada da Alegria oferece passeios para cães com carinho, segurança e diversão.">
+  <title>Cãominhada da Alegria</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      background: #f9f9f9;
+      color: #333;
+      line-height: 1.6;
+    }
+
+    header {
+      background: #641085;
+      color: white;
+      padding: 20px;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
+      margin-top: 10px;
+    }
+
+    nav a {
+      color: #f5ab17;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      text-decoration: underline;
+    }
+
+    .hero {
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      background: linear-gradient(to right, #641085, #8c4fa4);
+      color: white;
+      padding: 40px 20px;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      margin-bottom: 15px;
+    }
+
+    .hero p {
+      max-width: 700px;
+      margin: 0 auto;
+      font-size: 1.05rem;
+    }
+
+    .hero button {
+      margin-top: 24px;
+      padding: 14px 28px;
+      border: none;
+      background: #f5ab17;
+      color: #641085;
+      font-size: 1rem;
+      cursor: pointer;
+      border-radius: 8px;
+      font-weight: bold;
+      transition: background 0.2s ease;
+    }
+
+    .hero button:hover {
+      background: #e09914;
+    }
+
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+    }
+
+    .section,
+    .funcionamento,
+    .adestramento,
+    .agendamento,
+    .galeria {
+      padding: 50px 20px;
+      text-align: center;
+    }
+
+    .funcionamento,
+    .adestramento {
+      background: #f5ab17;
+      color: #641085;
+    }
+
+    .adestramento {
+      background: #f3d3a2;
+    }
+
+    .agendamento {
+      background: #8c4fa4;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+    }
+
+    .galeria {
+      background: #f9f9f9;
+    }
+
+    .galeria-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin: 30px auto;
+      max-width: 1000px;
+    }
+
+    .galeria-item {
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .galeria-item img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.3s ease;
+    }
+
+    .galeria-item img:hover {
+      transform: scale(1.05);
+    }
+
+    .funcionamento-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 30px;
+      margin: 30px auto;
+      max-width: 1000px;
+      text-align: left;
+    }
+
+    .funcionamento-item h3 {
+      color: #641085;
+      margin-bottom: 10px;
+    }
+
+    .funcionamento-item ul {
+      list-style: disc inside;
+      color: #3c0f3d;
+    }
+
+    .funcionamento-item:nth-child(2) {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .whatsapp-float {
+      position: fixed;
+      bottom: 80px;
+      right: 20px;
+      background: #25d366;
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      z-index: 1001;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 24px;
+      transition: background 0.3s ease;
+    }
+
+    .whatsapp-float:hover {
+      background: #128c7e;
+    }
+
+    .admin-panel {
+      background: rgba(255, 255, 255, 0.96);
+      border: 1px solid rgba(100, 16, 133, 0.15);
+      border-radius: 18px;
+      padding: 24px;
+      margin-top: 24px;
+      max-width: 1000px;
+      margin-left: auto;
+      margin-right: auto;
+      text-align: left;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .admin-panel h3 {
+      color: #641085;
+      margin-bottom: 16px;
+    }
+
+    .admin-request {
+      background: #f7f2fb;
+      border: 1px solid #d8b5e8;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .admin-request strong {
+      display: block;
+      margin-bottom: 6px;
+      color: #641085;
+    }
+
+    .admin-controls {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .admin-controls button {
+      padding: 12px 18px;
+      border: none;
+      border-radius: 10px;
+      background: #641085;
+      color: white;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .admin-controls button:hover {
+      background: #4d0f5f;
+    }
+
+    .adestramento-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(220px, 1fr));
+      gap: 24px;
+      margin: 30px auto;
+      max-width: 900px;
+      text-align: left;
+    }
+
+    .adestramento-grid h3 {
+      margin-bottom: 12px;
+    }
+
+    .adestramento-grid ul {
+      list-style: disc inside;
+      color: #3c0f3d;
+    }
+
+    .calendar {
+      width: min(520px, 100%);
+      margin: 24px auto 0;
+      max-width: 520px;
+      text-align: center;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255, 255, 255, 0.98);
+      color: #333;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.08);
+    }
+
+    .calendar h3,
+    .calendar-month-year {
+      color: #641085;
+      margin-bottom: 12px;
+      font-weight: 700;
+    }
+
+    .calendar-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      align-items: center;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(48px, 1fr));
+      gap: 8px;
+    }
+
+    .calendar-day {
+      min-height: 60px;
+      padding: 10px;
+      border-radius: 14px;
+      background: #fff;
+      border: 1px solid rgba(100, 16, 133, 0.14);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #333;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.15s ease;
+    }
+
+    .calendar-day:hover {
+      transform: translateY(-1px);
+    }
+
+    .calendar-day.empty {
+      background: transparent;
+      border: none;
+      box-shadow: none;
+      cursor: default;
+    }
+
+    .calendar-day.header {
+      background: #641085;
+      color: white;
+      font-weight: 700;
+      justify-content: center;
+      min-height: auto;
+      padding: 10px 8px;
+      cursor: default;
+    }
+
+    .calendar-day.today {
+      box-shadow: inset 0 0 0 2px rgba(245, 171, 23, 0.4);
+    }
+
+    .calendar-day.booked {
+      background: rgba(245, 171, 23, 0.15);
+      border-color: #f5ab17;
+    }
+
+    .calendar-day.unavailable {
+      background: rgba(255, 95, 95, 0.12);
+      border-color: #d12020;
+      color: #a10000;
+    }
+
+    .calendar-day.selected {
+      outline: 2px solid #641085;
+      box-shadow: inset 0 0 0 2px rgba(100, 16, 133, 0.35);
+    }
+
+    .calendar-note {
+      margin-top: 14px;
+      font-size: 0.95rem;
+      color: #555;
+    }
+
+    @media (max-width: 900px) {
+      .adestramento-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+      width: min(420px, 100%);
+      max-width: 420px;
+      margin: 20px auto;
+      gap: 15px;
+    }
+
+    label {
+      text-align: left;
+      font-weight: bold;
+      margin-bottom: 6px;
+    }
+
+    input,
+    textarea,
+    button {
+      padding: 14px;
+      border-radius: 8px;
+      border: none;
+      font: inherit;
+    }
+
+    input,
+    textarea {
+      background: #ffffff;
+      color: #333;
+      outline: none;
+      width: 100%;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    button[type="submit"] {
+      background: #f5ab17;
+      color: #641085;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.2s ease;
+    }
+
+    button[type="submit"]:hover {
+      background: #e09914;
+    }
+
+    .section-links {
+      margin-top: 30px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      font-size: 0.95rem;
+    }
+
+    .section-links a {
+      color: inherit;
+      text-decoration: underline;
+    }
+
+    #voltarTopo {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      background: #641085;
+      color: #ffffff;
+      border: none;
+      border-radius: 999px;
+      padding: 12px 18px;
+      cursor: pointer;
+      box-shadow: 0 8px 18px rgba(0, 0, 0, 0.16);
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      z-index: 1000;
+    }
+
+    #voltarTopo:hover {
+      transform: translateY(-2px);
+    }
+
+    footer {
+      background: #641085;
+      color: white;
+      text-align: center;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding: 30px 16px;
+      }
+
+      .section,
+      .funcionamento,
+      .agendamento {
+        padding: 40px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>Cãominhada da Alegria 🐾</h1>
+    <nav>
+      <a href="#quem-somos">Quem Somos</a>
+      <a href="#contato">Contato</a>
+      <a href="#como-funciona">Como Funciona</a>
+      <a href="#agendamento">Agendamento</a>
+      <a href="#galeria">Galeria</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <h1>Passeios felizes para seu pet!</h1>
+      <p>Cuidamos do seu melhor amigo com carinho, diversão e segurança.</p>
+      <button type="button" onclick="scrollToSection()">Agendar agora</button>
+    </section>
+
+    <section class="section" id="quem-somos">
+      <h2>Quem Somos</h2>
+      <p>Somos uma equipe apaixonada por cães e por bem-estar animal. Atuamos com cuidado humano, adestramento ético e passeios seguros, sempre colocando o pet em primeiro lugar.</p>
+      <p>Nossa missão é transformar a rotina do seu cão em momentos de alegria, equilíbrio e confiança, com profissionais experientes e muito carinho.</p>
+      <div class="section-links">
+        <a href="#contato">Contato</a>
+      </div>
+    </section>
+
+    <section class="funcionamento" id="funcionamento">
+      <h2>Como funciona</h2>
+      <div class="funcionamento-grid">
+        <div class="funcionamento-item">
+          <h3>Passeios</h3>
+          <ul>
+            <li>Você entra em contato</li>
+            <li>Explicamos como funcionam os passeios</li>
+            <li>Você decide o tempo de passeio</li>
+            <li>Agendamos o melhor horário</li>
+            <li>Buscamos seu pet</li>
+            <li>Realizamos o passeio com segurança</li>
+            <li>Levamos seu pet de volta feliz para casa</li>
+          </ul>
+        </div>
+        <div class="funcionamento-item">
+          <h3>Adestramento</h3>
+          <p>Treinamento personalizado para cães, com aulas de obediência, socialização e comportamentos saudáveis.</p>
+          <p>Existem 3 métodos de adestramento:</p>
+          <ul>
+            <li><strong>Adestramento Básico:</strong> Focado em comandos essenciais: Senta, fica, vem, junto e foco no tutor.</li>
+            <li><strong>Adestramento Avançado:</strong> Voltado para funções específicas: Cães de Guarda, Cães de caça e tarefas complexas.</li>
+            <li><strong>Adestramento Específico:</strong> Focado em resolver problemas pontuais: xixi e cocô fora do lugar, destruição, ansiedade, reatividade.</li>
+          </ul>
+          <p>Fazemos visitas gratuitas para a realização das avaliações dos animais.</p>
+          <div class="adestramento-grid">
+            <div>
+              <h4>Agenda de turmas</h4>
+              <p>Segunda a sexta: 8:00 às 17:00</p>
+              <p>Sábados e domingos: 8:00 às 12:00</p>
+              <p>Agende sua vaga e garanta um treinamento eficiente e divertido.</p>
+            </div>
+          </div>
+          <div class="calendar">
+            <div class="calendar-meta">
+              <div class="calendar-month-year" id="calendarMonthYear">Calendário</div>
+              <div class="calendar-legend">Seg-Sex 8:00 às 17:00 • Sáb-Dom 8:00 às 12:00</div>
+            </div>
+            <div class="calendar-grid" id="calendarGrid"></div>
+            <p class="calendar-note">Clique em uma data para ver os horários disponíveis.</p>
+          </div>
+        </div>
+      </div>
+      <div class="section-links">
+        <a href="#contato">Contato</a>
+      </div>
+    </section>
+
+    <section class="agendamento" id="agendamento">
+      <h2>Agende um passeio ou adestramento</h2>
+      <form onsubmit="enviarWhatsApp(event)">
+        <label for="nome">Seu nome</label>
+        <input type="text" id="nome" name="nome" placeholder="Seu nome" required>
+
+        <label for="pet">Nome do pet</label>
+        <input type="text" id="pet" name="pet" placeholder="Nome do pet" required>
+
+        <label for="tipo">Serviço</label>
+        <select id="tipo" name="tipo" required>
+          <option value="passeio">Passeio</option>
+          <option value="adestramento">Adestramento</option>
+        </select>
+
+        <label for="data">Data desejada</label>
+        <input type="date" id="data" name="data" required>
+
+        <label for="hora">Hora desejada</label>
+        <select id="hora" name="hora" required>
+          <option value="">Selecione uma hora</option>
+        </select>
+        <div id="calendarMessage" class="calendar-note">Escolha uma data para ver horários disponíveis.</div>
+
+        <label for="info">Informações adicionais</label>
+        <textarea id="info" name="info" placeholder="Informações adicionais"></textarea>
+
+        <button type="submit">Enviar Agendamento via WhatsApp</button>
+      </form>
+      <div class="section-links">
+        <a href="#contato">Contato</a>
+      </div>
+    </section>
+
+    <section class="galeria" id="galeria">
+      <h2>Nossos Cães</h2>
+      <p>Veja alguns dos cães que já passaram por nossos passeios e adestramentos.</p>
+      <div class="galeria-grid">
+        <div class="galeria-item">
+          <a href="https://exemplo.com/foto-grande1.jpg" target="_blank">
+            <img src="https://exemplo.com/foto1.jpg" alt="Cão 1">
+          </a>
+        </div>
+        <div class="galeria-item">
+          <a href="https://exemplo.com/foto-grande2.jpg" target="_blank">
+            <img src="https://exemplo.com/foto2.jpg" alt="Cão 2">
+        </div>
+        <div class="galeria-item">
+          <a href="https://exemplo.com/foto-grande3.jpg" target="_blank">
+            <img src="https://exemplo.com/foto3.jpg" alt="Cão 3">
+        </div>
+        <div class="galeria-item">
+          <a href="https://exemplo.com/foto-grande4.jpg" target="_blank">
+            <img src="https://exemplo.com/foto4.jpg" alt="Cão 4">
+        </div>
+        <div class="galeria-item">
+         <a href="https://exemplo.com/foto-grande5.jpg" target="_blank">
+            <img src="https://exemplo.com/foto5.jpg" alt="Cão 5">
+        </div>
+        <div class="galeria-item">
+          <a href="https://exemplo.com/foto-grande6.jpg" target="_blank">
+            <img src="https://exemplo.com/foto6.jpg" alt="Cão 6">
+        </div>
+      </div>
+      <div class="section-links">
+        <a href="#contato">Contato</a>
+      </div>
+    </section>
+
+    <section class="section admin-panel" id="adminArea" style="display:none;">
+      <h3>Área administrativa</h3>
+      <p>Aqui você pode ver os pedidos salvos e enviar tudo por email para controle.</p>
+      <div id="adminRequests"></div>
+      <div class="admin-controls">
+        <button type="button" onclick="sendAllRequestsByEmail()">Enviar por Email</button>
+        <button type="button" onclick="hideAdminArea()">Fechar área administrativa</button>
+      </div>
+      <div class="section-links">
+        <a href="#contato">Contato</a>
+      </div>
+    </section>
+
+    <section class="section" id="contato">
+      <h2>Contato</h2>
+      <p>WhatsApp: <a href="https://wa.me/5567999982726" target="_blank" rel="noopener">(67) 99998-2726</a></p>
+      <p>Instagram: <a href="https://instagram.com/caominhada_da_alegria_" target="_blank" rel="noopener">@cãominhada_da_alegria_</a></p>
+      <h3>Horários de Atendimento</h3>
+      <p>Segunda a sexta: 8:00 às 17:00</p>
+      <p>Sábados e domingos: 8:00 às 12:00</p>
+      <div class="section-links">
+        <a href="#contato">Contato</a>
+      </div>
+    </section>
+  </main>
+
+  <button id="voltarTopo" type="button" onclick="scrollToTop()">Voltar ao topo</button>
+
+  <button class="whatsapp-float" onclick="window.open('https://wa.me/5567999982726', '_blank')">
+    📱
+  </button>
+
+  <button class="whatsapp-float" style="bottom: 150px; background: #641085;" onclick="promptAdminAccess()" title="Área do ADM">
+    ⚙️
+  </button>
+
+  <footer>
+    <p>© 2026 Cãominhada da Alegria - Todos os direitos reservados</p>
+  </footer>
+
+  <script>
+    function scrollToSection() {
+      document.getElementById('agendamento').scrollIntoView({
+        behavior: 'smooth'
+      });
+    }
+
+    function getSavedRequests() {
+      return JSON.parse(localStorage.getItem('caominhadaRequests') || '[]');
+    }
+
+    function getReservedSlots(date) {
+      return getSavedRequests()
+        .filter(req => req.data === date)
+        .map(req => req.hora);
+    }
+
+    function getTimeOptions(date) {
+      const day = new Date(date).getDay();
+      const startHour = 8;
+      const endHour = day === 0 || day === 6 ? 12 : 17;
+      const options = [];
+      for (let hour = startHour; hour <= endHour; hour++) {
+        options.push(`${hour.toString().padStart(2, '0')}:00`);
+      }
+      return options;
+    }
+
+    function formatDateValue(year, month, day) {
+      return `${year}-${String(month + 1).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
+    }
+
+    function clearSelectedCalendarDay() {
+      document.querySelectorAll('.calendar-day.selected').forEach(el => el.classList.remove('selected'));
+    }
+
+    function selectCalendarDate(dateStr, dayCell) {
+      const dateInput = document.getElementById('data');
+      if (!dateInput) return;
+      dateInput.value = dateStr;
+      clearSelectedCalendarDay();
+      if (dayCell) {
+        dayCell.classList.add('selected');
+      }
+      updateTimeOptions(dateStr);
+    }
+
+    function buildCalendar() {
+      const calendarGrid = document.getElementById('calendarGrid');
+      const headerLabel = document.getElementById('calendarMonthYear');
+      const calendarMessage = document.getElementById('calendarMessage');
+      if (!calendarGrid || !headerLabel || !calendarMessage) return;
+
+      const now = new Date();
+      const today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
+      headerLabel.textContent = `${monthNames[month]} ${year}`;
+
+      const firstDay = new Date(year, month, 1).getDay();
+      const daysInMonth = new Date(year, month + 1, 0).getDate();
+      const weekdayNames = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
+
+      calendarGrid.innerHTML = '';
+      weekdayNames.forEach(day => {
+        const dayCell = document.createElement('div');
+        dayCell.className = 'calendar-day header';
+        dayCell.textContent = day;
+        calendarGrid.appendChild(dayCell);
+      });
+
+      for (let i = 0; i < firstDay; i++) {
+        const emptyCell = document.createElement('div');
+        emptyCell.className = 'calendar-day empty';
+        calendarGrid.appendChild(emptyCell);
+      }
+
+      for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(year, month, day);
+        const dateStr = formatDateValue(year, month, day);
+        const dayCell = document.createElement('div');
+        dayCell.className = 'calendar-day';
+        dayCell.textContent = day;
+
+        if (date.toDateString() === today.toDateString()) {
+          dayCell.classList.add('today');
+        }
+
+        const reserved = getReservedSlots(dateStr);
+        const timeOptions = getTimeOptions(dateStr);
+        if (date < today) {
+          dayCell.classList.add('empty');
+        } else {
+          if (reserved.length && timeOptions.length && reserved.length >= timeOptions.length) {
+            dayCell.classList.add('unavailable');
+          } else if (reserved.length) {
+            dayCell.classList.add('booked');
+          }
+          dayCell.addEventListener('click', () => selectCalendarDate(dateStr, dayCell));
+        }
+
+        const note = document.createElement('span');
+        note.style.fontSize = '0.7rem';
+        note.style.opacity = '0.8';
+        note.style.marginTop = '4px';
+        note.textContent = date.getDay() === 0 || date.getDay() === 6 ? 'Sáb/Dom' : 'Seg-Sex';
+        dayCell.appendChild(note);
+
+        calendarGrid.appendChild(dayCell);
+      }
+
+      if (!document.getElementById('data').value) {
+        calendarMessage.textContent = 'Clique em uma data no calendário ou escolha uma data acima para ver horários disponíveis.';
+      }
+    }
+
+    function updateTimeOptions(dateStr) {
+      const horaSelect = document.getElementById('hora');
+      const calendarMessage = document.getElementById('calendarMessage');
+      if (!horaSelect || !calendarMessage) return;
+
+      const times = getTimeOptions(dateStr);
+      const reserved = getReservedSlots(dateStr);
+      horaSelect.innerHTML = '';
+
+      if (!times.length) {
+        horaSelect.innerHTML = '<option value="">Selecione uma fecha válida</option>';
+        calendarMessage.textContent = 'Selecione uma data válida para ver os horários disponíveis.';
+        return;
+      }
+
+      times.forEach(time => {
+        const option = document.createElement('option');
+        option.value = time;
+        option.textContent = `${time}${reserved.includes(time) ? ' - Indisponível' : ''}`;
+        option.disabled = reserved.includes(time);
+        horaSelect.appendChild(option);
+      });
+
+      const available = times.filter(time => !reserved.includes(time));
+      if (!available.length) {
+        calendarMessage.textContent = 'Nenhum horário disponível nesta data. Escolha outro dia.';
+      } else {
+        calendarMessage.textContent = reserved.length
+          ? `Horários indisponíveis: ${reserved.join(', ')}. Escolha um horário livre.`
+          : 'Horários disponíveis. Escolha um horário e envie o agendamento.';
+        horaSelect.value = available[0];
+      }
+    }
+
+    function enviarWhatsApp(event) {
+      event.preventDefault();
+
+      const nome = document.getElementById('nome').value.trim();
+      const pet = document.getElementById('pet').value.trim();
+      const tipo = document.getElementById('tipo').value;
+      const data = document.getElementById('data').value;
+      const hora = document.getElementById('hora').value;
+      const info = document.getElementById('info').value.trim();
+
+      if (!nome || !pet || !data || !tipo || !hora) {
+        alert('Por favor, preencha todos os campos do agendamento, incluindo data e hora.');
+        return;
+      }
+
+      const reserved = getReservedSlots(data);
+      if (reserved.includes(hora)) {
+        alert('Este horário já foi reservado. Escolha outro horário ou data.');
+        return;
+      }
+
+      const mensagem = `Olá! Meu nome é ${nome}. Gostaria de agendar um ${tipo === 'adestramento' ? 'adestramento' : 'passeio'} para meu pet ${pet} na data ${data} às ${hora}. Informações adicionais: ${info || 'Nenhuma'}`;
+      const numeroWhatsApp = '5567999982726';
+      const url = `https://wa.me/${numeroWhatsApp}?text=${encodeURIComponent(mensagem)}`;
+
+      saveRequest({ nome, pet, tipo, data, hora, info, enviadoEm: new Date().toISOString() });
+      window.open(url, '_blank');
+      buildCalendar();
+    }
+
+    function saveRequest(request) {
+      const saved = getSavedRequests();
+      saved.push(request);
+      localStorage.setItem('caominhadaRequests', JSON.stringify(saved));
+    }
+
+    function promptAdminAccess() {
+      const adminPassword = 'adm2026';
+      const senha = prompt('Digite a senha de administrador:');
+      if (senha === adminPassword) {
+        showAdminArea();
+      } else if (senha !== null) {
+        alert('Senha incorreta.');
+      }
+    }
+
+    function showAdminArea() {
+      const adminSection = document.getElementById('adminArea');
+      if (!adminSection) return;
+      adminSection.style.display = 'block';
+      loadAdminRequests();
+      adminSection.scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function hideAdminArea() {
+      const adminSection = document.getElementById('adminArea');
+      if (!adminSection) return;
+      adminSection.style.display = 'none';
+    }
+
+    function loadAdminRequests() {
+      const adminRequests = document.getElementById('adminRequests');
+      const saved = getSavedRequests();
+      adminRequests.innerHTML = '';
+
+      if (!saved.length) {
+        adminRequests.innerHTML = '<p>Nenhum pedido salvo ainda.</p>';
+        return;
+      }
+
+      saved.slice().reverse().forEach((req, index) => {
+        const requestCard = document.createElement('div');
+        requestCard.className = 'admin-request';
+        requestCard.innerHTML = `
+          <strong>Pedido ${saved.length - index}</strong>
+          <p><strong>Nome:</strong> ${req.nome}</p>
+          <p><strong>Pet:</strong> ${req.pet}</p>
+          <p><strong>Serviço:</strong> ${req.tipo}</p>
+          <p><strong>Data desejada:</strong> ${req.data}</p>
+          <p><strong>Hora:</strong> ${req.hora}</p>
+          <p><strong>Informações:</strong> ${req.info || 'Nenhuma'}</p>
+          <p><strong>Enviado em:</strong> ${new Date(req.enviadoEm).toLocaleString('pt-BR')}</p>
+        `;
+        adminRequests.appendChild(requestCard);
+      });
+    }
+
+    function sendAllRequestsByEmail() {
+      const saved = getSavedRequests();
+      if (!saved.length) {
+        alert('Não há pedidos para enviar.');
+        return;
+      }
+
+      const recipient = 'contato@caominhada.com.br';
+      let body = 'Pedidos recebidos%0A%0A';
+      saved.forEach((req, index) => {
+        body += `Pedido ${index + 1}:%0A`;
+        body += `Nome: ${req.nome}%0A`;
+        body += `Pet: ${req.pet}%0A`;
+        body += `Serviço: ${req.tipo}%0A`;
+        body += `Data desejada: ${req.data}%0A`;
+        body += `Hora: ${req.hora}%0A`;
+        body += `Informações: ${req.info || 'Nenhuma'}%0A`;
+        body += `Enviado em: ${new Date(req.enviadoEm).toLocaleString('pt-BR')}%0A%0A`;
+      });
+
+      const subject = 'Pedidos da Cãominhada da Alegria';
+      window.location.href = `mailto:${recipient}?subject=${encodeURIComponent(subject)}&body=${body}`;
+    }
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function setupFormListeners() {
+      const dateField = document.getElementById('data');
+      if (dateField) {
+        dateField.addEventListener('change', () => {
+          const selectedDate = dateField.value;
+          if (selectedDate) {
+            updateTimeOptions(selectedDate);
+          }
+        });
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      buildCalendar();
+      setupFormListeners();
+    });
+  </script>
+
+</body>
+</html>
