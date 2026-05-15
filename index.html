@@ -582,8 +582,8 @@
     </section>
 
     <section class="galeria" id="galeria">
-      <h2>Nossos Cães</h2>
-      <p>Veja alguns dos cães que já passaram por nossos passeios e adestramentos.</p>
+      <h2>Nossos Alunos e Amigos</h2>
+      <p>Veja alguns dos pets que já transformaram sua rotina com nossos serviços de adestramento e lazer.</p>
       <div class="galeria-grid">
         <div class="galeria-item">
           <a href="imagens/Flora.jpeg" target="_blank">
@@ -762,13 +762,6 @@
           }
           dayCell.addEventListener('click', () => selectCalendarDate(dateStr, dayCell));
         }
-
-        const note = document.createElement('span');
-        note.style.fontSize = '0.7rem';
-        note.style.opacity = '0.8';
-        note.style.marginTop = '4px';
-        note.textContent = date.getDay() === 0 || date.getDay() === 6 ? 'Sáb/Dom' : 'Seg-Sex';
-        dayCell.appendChild(note);
 
         calendarGrid.appendChild(dayCell);
       }
