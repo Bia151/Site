@@ -470,7 +470,30 @@
   cursor: pointer;
   font-weight: bold;
 }
-    
+
+.chat-input-area {
+  display: flex;
+  gap: 8px;
+  padding: 15px;
+  background: #fff4cc;
+}
+
+.chat-input-area input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.chat-input-area button {
+  background: #641085;
+  color: white;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 16px;
+  cursor: pointer;
+}
+ 
     @media (max-width: 900px) {
       .adestramento-grid {
         grid-template-columns: 1fr;
@@ -1076,6 +1099,68 @@
       }
     }
 
+function sendCustomMessage() {
+
+  const input = document.getElementById('chatInput');
+  const message = input.value.trim().toLowerCase();
+
+  if (message === '') return;
+
+  const messages = document.getElementById('chatMessages');
+
+  const userMessage = document.createElement('div');
+  userMessage.className = 'bot-message';
+  userMessage.innerHTML = `<strong>Você:</strong> ${message}`;
+  messages.appendChild(userMessage);
+
+  const response = document.createElement('div');
+  response.className = 'bot-message';
+
+  if (message.includes('passeio')) {
+    response.innerHTML = '🐶 Nossos passeios são personalizados para cada cão.';
+  }
+
+  else if (message.includes('adestramento')) {
+    response.innerHTML = '🎓 Trabalhamos com adestramento básico, avançado e comportamental.';
+  }
+
+  else if (message.includes('horário')) {
+    response.innerHTML = '⏰ Segunda a Sexta: 8h às 17h | Sábado e Domingo: 8h às 12h.';
+  }
+
+  else if (message.includes('whatsapp')) {
+    response.innerHTML = '📱 Nosso WhatsApp é: (46) 99989-4292';
+  }
+
+  else if (message.includes('valor') || message.includes('preço')) {
+    response.innerHTML = '💰 Entre em contato no WhatsApp para orçamento personalizado.';
+  }
+
+  else {
+
+    response.innerHTML = `
+      🤖 Ainda não sei responder isso.<br><br>
+      Clique abaixo para pesquisar:<br><br>
+
+      <a href="https://www.google.com/search?q=${encodeURIComponent(message)}" target="_blank">
+        🔎 Pesquisar no Google
+      </a>
+    `;
+  }
+
+  messages.appendChild(response);
+
+  messages.scrollTop = messages.scrollHeight;
+
+  input.value = '';
+}
+
+function handleKey(event) {
+  if (event.key === 'Enter') {
+    sendCustomMessage();
+  }
+}
+    
     window.addEventListener('DOMContentLoaded', () => {
       buildCalendar();
       setupFormListeners();
@@ -1130,33 +1215,30 @@ function sendMessage(message) {
 </div>
 
 <div class="chat-box" id="chatBox">
+
   <div class="chat-header">
     Assistente Cãominhada
   </div>
 
   <div class="chat-messages" id="chatMessages">
     <div class="bot-message">
-      Olá! 👋 Como posso ajudar?
+      Olá! 👋 Pergunte qualquer coisa sobre passeios, adestramento ou cuidados com pets.
     </div>
   </div>
 
-  <div class="chat-options">
-    <button onclick="sendMessage('Quero agendar um passeio')">
-      Passeio
-    </button>
+  <div class="chat-input-area">
+    <input 
+      type="text" 
+      id="chatInput" 
+      placeholder="Digite sua pergunta..."
+      onkeypress="handleKey(event)"
+    >
 
-    <button onclick="sendMessage('Quero informações sobre adestramento')">
-      Adestramento
-    </button>
-
-    <button onclick="sendMessage('Quero saber os horários')">
-      Horários
-    </button>
-
-    <button onclick="sendMessage('Quero falar no WhatsApp')">
-      WhatsApp
+    <button onclick="sendCustomMessage()">
+      Enviar
     </button>
   </div>
+
 </div>
             
 </body>
