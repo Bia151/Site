@@ -402,6 +402,75 @@
   text-align: center;
     }
 
+.chat-toggle {
+  position: fixed;
+  bottom: 90px;
+  left: 20px;
+  width: 65px;
+  height: 65px;
+  background: #f5ab17;
+  color: #641085;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 30px;
+  cursor: pointer;
+  z-index: 9999;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+}
+
+.chat-box {
+  position: fixed;
+  bottom: 170px;
+  left: 20px;
+  width: 300px;
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  display: none;
+  z-index: 9999;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+}
+
+.chat-header {
+  background: #641085;
+  color: white;
+  padding: 15px;
+  font-weight: bold;
+  text-align: center;
+}
+
+.chat-messages {
+  padding: 15px;
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.bot-message {
+  background: #f3f3f3;
+  padding: 10px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+
+.chat-options {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 15px;
+}
+
+.chat-options button {
+  background: #f5ab17;
+  color: #641085;
+  border: none;
+  padding: 12px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+}
+    
     @media (max-width: 900px) {
       .adestramento-grid {
         grid-template-columns: 1fr;
@@ -1011,7 +1080,84 @@
       buildCalendar();
       setupFormListeners();
     });
+
+function toggleChat() {
+  const chat = document.getElementById('chatBox');
+
+  if (chat.style.display === 'block') {
+    chat.style.display = 'none';
+  } else {
+    chat.style.display = 'block';
+  }
+}
+
+function sendMessage(message) {
+  const messages = document.getElementById('chatMessages');
+
+  const userMessage = document.createElement('div');
+  userMessage.className = 'bot-message';
+  userMessage.innerHTML = `<strong>Você:</strong> ${message}`;
+  messages.appendChild(userMessage);
+
+  const response = document.createElement('div');
+  response.className = 'bot-message';
+
+  if (message.includes('passeio')) {
+    response.innerHTML = '🐶 Nossos passeios são personalizados para cada cão.';
+  }
+
+  else if (message.includes('adestramento')) {
+    response.innerHTML = '🎓 Trabalhamos com adestramento básico, avançado e comportamental.';
+  }
+
+  else if (message.includes('horários')) {
+    response.innerHTML = '⏰ Segunda a Sexta: 8h às 17h | Sábado e Domingo: 8h às 12h.';
+  }
+
+  else if (message.includes('WhatsApp')) {
+    response.innerHTML = '📱 Fale conosco: (46) 99989-4292';
+  }
+
+  messages.appendChild(response);
+
+  messages.scrollTop = messages.scrollHeight;
+}
+    
   </script>
 
+<div class="chat-toggle" onclick="toggleChat()">
+  🐾
+</div>
+
+<div class="chat-box" id="chatBox">
+  <div class="chat-header">
+    Assistente Cãominhada
+  </div>
+
+  <div class="chat-messages" id="chatMessages">
+    <div class="bot-message">
+      Olá! 👋 Como posso ajudar?
+    </div>
+  </div>
+
+  <div class="chat-options">
+    <button onclick="sendMessage('Quero agendar um passeio')">
+      Passeio
+    </button>
+
+    <button onclick="sendMessage('Quero informações sobre adestramento')">
+      Adestramento
+    </button>
+
+    <button onclick="sendMessage('Quero saber os horários')">
+      Horários
+    </button>
+
+    <button onclick="sendMessage('Quero falar no WhatsApp')">
+      WhatsApp
+    </button>
+  </div>
+</div>
+            
 </body>
 </html>
